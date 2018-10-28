@@ -12,13 +12,8 @@ variables:
   registryName: "richlandercr"
 
 steps:
-- task: Docker@1
-  displayName: 'Build an image'
-  inputs:
-    Build Context: '/samples/aspnetapp'
-    buildContext: '/samples/aspnetapp'
-    workingDirectory: '/samples/aspnetapp'
-    imageName: '$(registryName).azurecr.io/$(imageName)'
+- script: docker build -t '$(registryName).azurecr.io/$(imageName)' ./samples/aspnetapp
+- script: docker tag '$(registryName).azurecr.io/$(imageName)' '$(registryName).azurecr.io/$(baseName):latest'
 - task: Docker@1
   displayName: Login
   inputs:
@@ -30,7 +25,6 @@ steps:
   inputs:
     command: 'push'
     imageName: '$(registryName).azurecr.io/$(imageName)'
-- script: docker tag '$(registryName).azurecr.io/$(imageName)' '$(registryName).azurecr.io/$(baseName):latest'
 - task: Docker@1
   displayName: 'Push image as latest'
   inputs:
