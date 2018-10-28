@@ -8,7 +8,21 @@ pool:
 
 variables:
   imageName: 'aspnetapp:$(build.buildId)'
+  registryName: "richlandercr"
 
 steps:
-- script: docker build -t $(imageName) samples/aspnetapp
-  displayName: 'docker build'
+- task: Docker@1
+  displayName: 'Build an image'
+  inputs:
+    imageName: '$(registryName).azurecr.io/$(imageName)'
+- task: Docker@1
+  displayName: Login
+  inputs:
+    azureSubscriptionEndpoint: 'devopsconnection'
+    azureContainerRegistry: $(registryName).azurecr.io
+    command: login
+- task: Docker@1
+  displayName: 'Push an image'
+  inputs:
+    command: 'push'
+    imageName: '$(registryName).azurecr.io/$(imageName)'
