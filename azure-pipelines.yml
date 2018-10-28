@@ -10,5 +10,5 @@ variables:
   imageName: 'aspnetapp:$(build.buildId)'
 
 steps:
-- script: docker build -f Dockerfile -t $(imageName) samples/aspnetapp
+- script: docker build -t $(imageName) samples/aspnetapp
   displayName: 'docker build'
