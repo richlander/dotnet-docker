@@ -20,13 +20,5 @@ steps:
     azureSubscriptionEndpoint: 'devopsconnection'
     azureContainerRegistry: $(registryName).azurecr.io
     command: login
-- task: Docker@1
-  displayName: 'Push image as specific image name'
-  inputs:
-    command: 'push'
-    imageName: '$(registryName).azurecr.io/$(imageName)'
-- task: Docker@1
-  displayName: 'Push image as latest'
-  inputs:
-    command: 'push'
-    imageName: '$(registryName).azurecr.io/$(baseName):latest'
+- script: docker push '$(registryName).azurecr.io/$(imageName)'
+- script: docker push '$(registryName).azurecr.io/$(baseName):latest'
