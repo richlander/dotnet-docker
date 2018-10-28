@@ -7,7 +7,8 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
-  imageName: 'aspnetapp:$(build.buildId)'
+  baseName: 'aspnetapp'
+  imageName: '$(baseName):$(build.buildId)'
   registryName: "richlandercr"
 
 steps:
@@ -22,7 +23,12 @@ steps:
     azureContainerRegistry: $(registryName).azurecr.io
     command: login
 - task: Docker@1
-  displayName: 'Push an image'
+  displayName: 'Push image as specific image name'
   inputs:
     command: 'push'
     imageName: '$(registryName).azurecr.io/$(imageName)'
+- task: Docker@1
+  displayName: 'Push image as latest'
+  inputs:
+    command: 'push'
+    imageName: '$(registryName).azurecr.io/$(baseName):latest'
