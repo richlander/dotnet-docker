@@ -18,8 +18,6 @@ namespace aspnetapp.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-            ViewData["Cities"] = Trip.GetCities();
-
             return View();
         }
 
