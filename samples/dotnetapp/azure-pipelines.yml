@@ -8,7 +8,6 @@ pool:
 
 variables:
   imageName: 'dotnetapp'
-  repoName: "richlandercr.azurecr.io"
 
 steps:
 - script: docker build --pull -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
