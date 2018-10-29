@@ -10,10 +10,11 @@ variables:
   imageName: 'dotnetapp'
 
 steps:
-- script: docker build --pull -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
-- script: docker build --pull --target testrunner -t dotnetapp:test -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
-- script: mkdir TestResults
-- script: docker run --rm -v "$(pwd)"/TestResults:/app/tests/TestResults dotnetapp:test
+- script: |
+  docker build --pull -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
+  docker build --pull --target testrunner -t dotnetapp:test -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
+  mkdir TestResults
+  docker run --rm -v "$(pwd)"/TestResults:/app/tests/TestResults dotnetapp:test
 - task: PublishTestResults@2
   inputs:
     testRunner: VSTest
@@ -24,7 +25,8 @@ steps:
     azureSubscriptionEndpoint: 'devopsconnection'
     azureContainerRegistry: $(repoName)
     command: login
-- script: docker tag $(imageName) '$(repoName)/$(imageName):$(build.buildId)'
-- script: docker push '$(repoName)/$(imageName):$(build.buildId)'
-- script: docker tag $(imageName) '$(repoName)/$(imageName):latest'
-- script: docker push '$(repoName)/$(imageName):latest'
+- script: |
+  docker tag $(imageName) '$(repoName)/$(imageName):$(build.buildId)'
+  docker push '$(repoName)/$(imageName):$(build.buildId)'
+  docker tag $(imageName) '$(repoName)/$(imageName):latest'
+  docker push '$(repoName)/$(imageName):latest'
