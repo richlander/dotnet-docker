@@ -10,9 +10,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build samples/dotnetapp/dotnetapp/dotnetapp.csproj --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-- script: dotnet test samples/dotnetapp/tests/tests.csproj --logger trx
+- script: docker build --pull --target testrunner -t dotnetapp -f docker build -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
+- script: mkdir TestResults
+- script: docker run --rm -v "$(pwd)"/TestResults:/app/tests/TestResults dotnetapp:test
 - task: PublishTestResults@2
   inputs:
     testRunner: VSTest
