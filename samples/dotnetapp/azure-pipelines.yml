@@ -10,9 +10,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build dotnetapp/dotnetapp.csproj --configuration $(buildConfiguration)
+- script: dotnet build samples/dotnetapp/dotnetapp/dotnetapp.csproj --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- script: dotnet test tests/tests.csproj --logger trx
+- script: dotnet test samples/dotnetapp/dotnetapp/tests/tests.csproj --logger trx
 - task: PublishTestResults@2
   inputs:
     testRunner: VSTest
