@@ -7,18 +7,18 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
-  baseName: 'aspnetapp'
-  imageName: '$(baseName):$(build.buildId)'
-  registryName: "richlandercr"
+  imageName: 'aspnetapp'
+  repoName: "richlandercr.azurecr.io"
 
 steps:
-- script: docker build -t '$(registryName).azurecr.io/$(imageName)' ./samples/aspnetapp
-- script: docker tag '$(registryName).azurecr.io/$(imageName)' '$(registryName).azurecr.io/$(baseName):latest'
+- script: docker build -t aspnetapp -f samples/aspnetapp/Dockerfile.alpine-x64 samples/aspnetapp
 - task: Docker@1
   displayName: Login
   inputs:
     azureSubscriptionEndpoint: 'devopsconnection'
-    azureContainerRegistry: $(registryName).azurecr.io
+    azureContainerRegistry: $(repoName)
     command: login
-- script: docker push '$(registryName).azurecr.io/$(imageName)'
-- script: docker push '$(registryName).azurecr.io/$(baseName):latest'
+- script: docker tag aspnetapp '$(repoName)/$(imageName):$(build.buildId)'
+- script: docker push '$(repoName)/$(imageName):$(build.buildId)'
+- script: docker tag aspnetapp '$(repoName)/$(imageName):latest'
+- script: docker push '$(repoName)/$(imageName):latest'
