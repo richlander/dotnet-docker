@@ -8,7 +8,6 @@ pool:
 
 variables:
   imageName: 'aspnetapp'
-  repoName: "richlandercr.azurecr.io"
 
 steps:
 - script: docker build -t aspnetapp -f samples/aspnetapp/Dockerfile.alpine-x64 samples/aspnetapp
