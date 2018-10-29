@@ -8,6 +8,9 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  baseName: 'dotnetapp'
+  imageName: '$(baseName):$(build.buildId)'
+  registryName: "richlandercr"
 
 steps:
 - script: docker build --pull --target testrunner -t dotnetapp:test -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
