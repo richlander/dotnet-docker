@@ -18,7 +18,7 @@ steps:
     azureSubscriptionEndpoint: 'devopsconnection'
     azureContainerRegistry: $(repoName)
     command: login
-- script: docker tag aspnetapp '$(repoName)/$(imageName):$(build.buildId)'
+- script: docker tag $(aspnetapp) '$(repoName)/$(imageName):$(build.buildId)'
 - script: docker push '$(repoName)/$(imageName):$(build.buildId)'
-- script: docker tag aspnetapp '$(repoName)/$(imageName):latest'
+- script: docker tag $(aspnetapp) '$(repoName)/$(imageName):latest'
 - script: docker push '$(repoName)/$(imageName):latest'
