@@ -10,7 +10,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: docker build --pull --target testrunner -t dotnetapp -f docker build -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
+- script: docker build --pull --target testrunner -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
 - script: mkdir TestResults
 - script: docker run --rm -v "$(pwd)"/TestResults:/app/tests/TestResults dotnetapp:test
 - task: PublishTestResults@2
