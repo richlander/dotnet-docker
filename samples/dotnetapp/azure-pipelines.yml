@@ -28,6 +28,6 @@ steps:
     azureContainerRegistry: $(registryName).azurecr.io
     command: login
 - script: docker tag dotnetapp '$(registryName).azurecr.io/$(imageName)'
-- script: docker tag dotnteapp '$(registryName).azurecr.io/$(baseName):latest'
+- script: docker tag dotnetapp '$(registryName).azurecr.io/$(baseName):latest'
 - script: docker push '$(registryName).azurecr.io/$(imageName)'
 - script: docker push '$(registryName).azurecr.io/$(baseName):latest'
