@@ -11,10 +11,10 @@ variables:
 
 steps:
 - script: |
-  docker build --pull -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
-  docker build --pull --target testrunner -t dotnetapp:test -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
-  mkdir TestResults
-  docker run --rm -v "$(pwd)"/TestResults:/app/tests/TestResults dotnetapp:test
+    docker build --pull -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
+    docker build --pull --target testrunner -t dotnetapp:test -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
+    mkdir TestResults
+    docker run --rm -v "$(pwd)"/TestResults:/app/tests/TestResults dotnetapp:test
 - task: PublishTestResults@2
   inputs:
     testRunner: VSTest
@@ -26,7 +26,7 @@ steps:
     azureContainerRegistry: $(repoName)
     command: login
 - script: |
-  docker tag $(imageName) '$(repoName)/$(imageName):$(build.buildId)'
-  docker push '$(repoName)/$(imageName):$(build.buildId)'
-  docker tag $(imageName) '$(repoName)/$(imageName):latest'
-  docker push '$(repoName)/$(imageName):latest'
+    docker tag $(imageName) '$(repoName)/$(imageName):$(build.buildId)'
+    docker push '$(repoName)/$(imageName):$(build.buildId)'
+    docker tag $(imageName) '$(repoName)/$(imageName):latest'
+    docker push '$(repoName)/$(imageName):latest'
