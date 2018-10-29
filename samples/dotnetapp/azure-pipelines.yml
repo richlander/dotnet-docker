@@ -13,6 +13,7 @@ variables:
   registryName: "richlandercr"
 
 steps:
+- script: docker build --pull -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
 - script: docker build --pull --target testrunner -t dotnetapp:test -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
 - script: mkdir TestResults
 - script: docker run --rm -v "$(pwd)"/TestResults:/app/tests/TestResults dotnetapp:test
@@ -26,7 +27,7 @@ steps:
     azureSubscriptionEndpoint: 'devopsconnection'
     azureContainerRegistry: $(registryName).azurecr.io
     command: login
-- script: docker build -t '$(registryName).azurecr.io/$(imageName)' -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
-- script: docker tag '$(registryName).azurecr.io/$(imageName)' '$(registryName).azurecr.io/$(baseName):latest'
+- script: docker tag dotnetapp '$(registryName).azurecr.io/$(imageName)'
+- script: docker tag dotnteapp '$(registryName).azurecr.io/$(baseName):latest'
 - script: docker push '$(registryName).azurecr.io/$(imageName)'
 - script: docker push '$(registryName).azurecr.io/$(baseName):latest'
