@@ -26,5 +26,7 @@ steps:
     azureSubscriptionEndpoint: 'devopsconnection'
     azureContainerRegistry: $(registryName).azurecr.io
     command: login
+- script: docker build -t '$(registryName).azurecr.io/$(imageName)' -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
+- script: docker tag '$(registryName).azurecr.io/$(imageName)' '$(registryName).azurecr.io/$(baseName):latest'
 - script: docker push '$(registryName).azurecr.io/$(imageName)'
 - script: docker push '$(registryName).azurecr.io/$(baseName):latest'
