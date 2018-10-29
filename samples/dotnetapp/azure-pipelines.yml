@@ -7,10 +7,8 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
-  buildConfiguration: 'Release'
-  baseName: 'dotnetapp'
-  imageName: '$(baseName):$(build.buildId)'
-  registryName: "richlandercr"
+  imageName: 'dotnetapp'
+  repoName: "richlandercr.azurecr.io"
 
 steps:
 - script: docker build --pull -t dotnetapp -f samples/dotnetapp/Dockerfile.alpine-x64 samples/dotnetapp
@@ -25,9 +23,9 @@ steps:
   displayName: Login
   inputs:
     azureSubscriptionEndpoint: 'devopsconnection'
-    azureContainerRegistry: $(registryName).azurecr.io
+    azureContainerRegistry: $(repoName)
     command: login
-- script: docker tag dotnetapp '$(registryName).azurecr.io/$(imageName)'
-- script: docker tag dotnetapp '$(registryName).azurecr.io/$(baseName):latest'
-- script: docker push '$(registryName).azurecr.io/$(imageName)'
-- script: docker push '$(registryName).azurecr.io/$(baseName):latest'
+- script: docker tag $(imageName) '$(repoName)/$(imageName):$(build.buildId)'
+- script: docker push '$(repoName)/$(imageName):$(build.buildId)'
+- script: docker tag $(imageName) '$(repoName)/$(imageName):latest'
+- script: docker push '$(repoName)/$(imageName):latest'
