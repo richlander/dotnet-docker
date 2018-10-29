@@ -17,3 +17,11 @@ steps:
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
+- task: Docker@1
+  displayName: Login
+  inputs:
+    azureSubscriptionEndpoint: 'devopsconnection'
+    azureContainerRegistry: $(registryName).azurecr.io
+    command: login
+- script: docker push '$(registryName).azurecr.io/$(imageName)'
+- script: docker push '$(registryName).azurecr.io/$(baseName):latest'
