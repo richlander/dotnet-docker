@@ -1,4 +1,4 @@
-name: aspnetapp
+name: aspnetapp-debian
 
 on:
   push:
