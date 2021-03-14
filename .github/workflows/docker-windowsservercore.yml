@@ -1,4 +1,4 @@
-name: aspnetapp
+name: aspnetapp-windowsservercore
 
 on:
   push:
@@ -17,9 +17,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: ./samples/aspnetapp
-          file: ./samples/aspnetapp/Dockerfile.windowsservercore-x64
-          push: true
-          tags: richlander/aspnetapp:windowsservercore
+        run: |
+          docker build --file=Dockerfile.windowsservercore-x64 -t richlander/aspnetapp:windowsservercore ./samples/aspnetapp
+          docker push richlander/aspnetapp:windowsservercore
