@@ -28,6 +28,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./samples/aspnetapp
-          file: {context}/Dockerfile.alpine-x64-slim
+          file: ./samples/aspnetapp/Dockerfile.alpine-x64-slim
           push: true
           tags: richlander/aspnetapp:alpine
