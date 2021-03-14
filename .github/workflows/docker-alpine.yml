@@ -1,4 +1,4 @@
-name: aspnetapp
+name: aspnetapp-alpine
 
 on:
   push:
