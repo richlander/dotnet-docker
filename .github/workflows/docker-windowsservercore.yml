@@ -1,4 +1,4 @@
-name: aspnetapp-windowsservercore
+name: aspnetapp
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: azure/docker-login@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
