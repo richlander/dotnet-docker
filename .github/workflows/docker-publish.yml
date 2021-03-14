@@ -24,8 +24,8 @@ jobs:
           context: ./samples/aspnetapp
           push: true
           tags: richlander/aspnetapp:latest
-          - name: Build and push
-      - uses: docker/build-push-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v2
         with:
           context: ./samples/aspnetapp
           file: Dockerfile.alpine-x64-slim
