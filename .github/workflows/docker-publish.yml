@@ -20,4 +20,4 @@ jobs:
         with:
           context: ./samples/aspnetapp
           push: true
-          tags: richlander/aspnetapp:latest
+          tags: dotnet-docker/aspnetapp:latest
