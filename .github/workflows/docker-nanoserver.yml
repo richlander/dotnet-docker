@@ -1,4 +1,4 @@
-name: aspnetapp
+name: aspnetapp-nanoserver
 
 on:
   push:
