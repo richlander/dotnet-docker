@@ -54,6 +54,8 @@ namespace Microsoft.DotNet.Docker.Tests
 
             string aspnetUrlsValue = imageData.Version.Major < 3 ? "http://+:80" : string.Empty;
             variables.Add(new EnvironmentVariableInfo("ASPNETCORE_URLS", aspnetUrlsValue));
+            variables.Add(new EnvironmentVariableInfo("DOTNET_GENERATE_ASPNET_CERTIFICATE", "false"));
+            variables.Add(new EnvironmentVariableInfo("DOTNET_NO_LOGO", "true"));
             variables.Add(new EnvironmentVariableInfo("DOTNET_USE_POLLING_FILE_WATCHER", "true"));
             variables.Add(new EnvironmentVariableInfo("NUGET_XMLDOC_MODE", "skip"));
 
