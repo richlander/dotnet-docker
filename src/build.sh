@@ -1,7 +1,7 @@
 #! /bin/bash
 
 DOTNET_VERSION=6.0.0-preview.7.21316.3
-ARCH=arm64v8
+ARCH=amd64
 TAG=bullseye-slim
 
 docker build --pull --build-arg DOTNET_VERSION=$DOTNET_VERSION -t mcr.microsoft.com/dotnet/runtime-composite:6.0-$TAG-$ARCH runtime/6.0/$TAG/$ARCH/

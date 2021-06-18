@@ -1,8 +1,10 @@
 #! /bin/bash
 
 DOTNET_VERSION=6.0.0-preview.7.21316.3
-ARCH=arm64v8
+ARCH=amd64
 TAG=bullseye-slim
+
+docker pull mcr.microsoft.com/dotnet/sdk:6.0-$TAG-$ARCH
 
 mkdir logs
 git clone --depth 1 https://github.com/dotnet/roslyn
