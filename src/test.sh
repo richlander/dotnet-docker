@@ -24,7 +24,7 @@ docker run --rm -it -w /usr/share/dotnet/shared mcr.microsoft.com/dotnet/sdk:6.0
 echo non-composite with TC
 cp -r roslyn-temp roslyn-temp3
 time docker run --rm -it -v $(pwd)/logs:/logs -v $(pwd)/roslyn-temp3:/roslyn -w /roslyn mcr.microsoft.com/dotnet/sdk:6.0-$TAG-$ARCH bash -c "dotnet build Compilers.sln > /logs/logs-baseline.txt"
-echo composite with TC disabled
+echo non-composite with TC disabled
 cp -r roslyn-temp roslyn-temp4
 time docker run --rm -it -v $(pwd)/logs:/logs -v $(pwd)/roslyn-temp4:/roslyn -w /roslyn -e COMPlus_TieredCompilation=0 mcr.microsoft.com/dotnet/sdk:6.0-$TAG-$ARCH bash -c "dotnet build Compilers.sln > /logs/logs-baseline-no-tc.txt"
 rm -rf roslyn-temp* > /dev/null 2>&1
