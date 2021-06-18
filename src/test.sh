@@ -24,4 +24,4 @@ time docker run --rm -it -v $(pwd)/logs:/logs -v $(pwd)/roslyn-temp3:/roslyn -w 
 echo composite with TC disabled
 cp -r roslyn-temp roslyn-temp4
 time docker run --rm -it -v $(pwd)/logs:/logs -v $(pwd)/roslyn-temp4:/roslyn -w /roslyn -e COMPlus_TieredCompilation=0 mcr.microsoft.com/dotnet/sdk:6.0-$TAG-$ARCH bash -c "dotnet build Compilers.sln > /logs/logs-baseline-no-tc.txt"
-rm -rf roslyn-temp* > /dev/null
+rm -rf roslyn-temp* > /dev/null 2>&1
