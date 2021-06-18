@@ -10,7 +10,7 @@ docker pull mcr.microsoft.com/dotnet/sdk:6.0-$TAG-$ARCH
 echo check for composite file
 docker run --rm -it -w /usr/share/dotnet/shared mcr.microsoft.com/dotnet/sdk-composite:6.0-$TAG-$ARCH find . | grep r2r
 
-mkdir logs
+mkdir -f logs
 
 echo composite with TC
 cp -r roslyn-temp roslyn-temp1
