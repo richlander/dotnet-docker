@@ -6,6 +6,9 @@ TAG=bullseye-slim
 
 docker pull mcr.microsoft.com/dotnet/sdk:6.0-$TAG-$ARCH
 
+echo check for composite file
+docker run --rm -it -w /usr/share/dotnet/shared mcr.microsoft.com/dotnet/sdk-composite:6.0-$TAG-$ARCH find . | grep r2r
+
 mkdir logs
 git clone --depth 1 https://github.com/dotnet/roslyn
 echo composite with TC
