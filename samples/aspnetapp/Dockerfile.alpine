@@ -1,0 +1,26 @@
+ARG SDKARCH=amd64
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine-$SDKARCH AS build
+
+ARG TARGETARCH
+RUN arch=$TARGETARCH \
+    && if [ "$TARGETARCH" = "amd64" ]; then arch="x64"; fi \
+    && echo $arch > /tmp/arch
+
+WORKDIR /source
+
+# copy csproj and restore as distinct layers
+COPY aspnetapp/*.csproj .
+RUN dotnet restore -r linux-musl-$(cat /tmp/arch)
+
+# copy everything else and build app
+COPY aspnetapp/. .
+RUN dotnet publish -r linux-musl-$(cat /tmp/arch) -c Release --self-contained false --no-restore -o /app
+
+# final stage/image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine
+WORKDIR /app
+COPY --from=build /app .
+ENTRYPOINT ["./aspnetapp"]
+
+# https://github.com/dotnet/dotnet-docker/blob/main/samples/build-for-a-platform.md
+# https://github.com/dotnet/dotnet-docker/blob/main/samples/enable-globalization.md
