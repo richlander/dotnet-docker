@@ -20,9 +20,7 @@ ENV \
     # UID of the non-root user 'app'
     APP_UID=64198 \
     # Configure web servers to bind to port 8080 when present
-    ASPNETCORE_HTTP_PORTS=8080 \
-    # Set the invariant mode since ICU package isn't included (see https://github.com/dotnet/announcements/issues/20)
-    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
+    ASPNETCORE_HTTP_PORTS=8080
 
 WORKDIR /app
 COPY --from=build /app .
