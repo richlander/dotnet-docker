@@ -1,20 +1,13 @@
-var builder = WebApplication.CreateBuilder(args);
+using System.Text.Json.Serialization;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var builder = WebApplication.CreateSlimBuilder(args);
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
+});
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
 
 app.MapGet("/Environment", () =>
 {
@@ -46,3 +39,8 @@ app.MapGet("/Environment", () =>
 // app.MapHealthChecks("/healthz");
 
 app.Run();
+
+[JsonSerializable(typeof(EnvironmentInfo[]))]
+internal partial class AppJsonSerializerContext : JsonSerializerContext
+{
+}
